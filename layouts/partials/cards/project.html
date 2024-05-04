@@ -44,8 +44,10 @@
             {{ if .repo }}
             <!-- Place this tag where you want the button to render. -->
             <a
+              id="repoLink"
               class="github-button project-btn d-none"
-              href="{{ .repo }}"
+              href="#"
+              data-repo="{{ .repo }}"
               data-icon="octicon-standard"
               data-show-count="true"
               aria-label="Star {{ .name }}"
@@ -67,3 +69,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var repoLinks = document.querySelectorAll('[data-repo]');
+    
+    repoLinks.forEach(function(link) {
+      var fullRepoUrl = link.getAttribute('data-repo');
+      var repoUrlParts = fullRepoUrl.split('/');
+      var homepageUrl = repoUrlParts.slice(0, 5).join('/');
+      link.setAttribute('href', homepageUrl);
+    });
+  });
+</script>
